@@ -1,0 +1,24 @@
+[versions]
+kotlin = "1.9.22"
+agp = "8.2.2"
+compose = "1.6.0"
+compose-compiler = "1.5.8"
+ktor = "2.3.9"
+google-services = "4.4.1"
+gitlive-firebase = "1.11.1"
+coroutines = "1.7.3"
+
+[libraries]
+ktor-client-core = { module = "io.ktor:ktor-client-core", version.ref = "ktor" }
+ktor-client-mock = { module = "io.ktor:ktor-client-mock", version.ref = "ktor" }
+firebase-database = { module = "dev.gitlive:firebase-database", version.ref = "gitlive-firebase" }
+kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
+coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "coroutines" }
+
+[plugins]
+kotlin-multiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
+android-application = { id = "com.android.application", version.ref = "agp" }
+compose-multiplatform = { id = "org.jetbrains.compose", version.ref = "compose" }
+compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "compose-compiler" }
+google-services = { id = "com.google.gms.google-services", version.ref = "google-services" }
+gitlive-firebase = { id = "dev.gitlive.firebase-plugin", version.ref = "gitlive-firebase" }

@@ -4,7 +4,29 @@ This project is a "Library of Things" application built with Kotlin Multiplatfor
 
 ## First Time Setup
 
-1.  **Install JDK:** Make sure you have a recent version of the Java Development Kit (JDK) installed.
+1.  **Install JDK:** Make sure you have a recent version of the Java Development Kit (JDK) installed (e.g., JDK 17).
 2.  **Install IntelliJ IDEA:** It is recommended to use IntelliJ IDEA with the Kotlin plugin.
 3.  **Clone the repository:** `git clone <repository-url>`
-4.  **Build the project:** Open the project in IntelliJ IDEA and build it. This will download all the necessary dependencies.
+4.  **Firebase Configuration:** You must add your own Firebase configuration files. Place your `google-services.json` in the `androidApp/` directory and your `GoogleService-Info.plist` in the `iosApp/` directory.
+5.  **Build the project:** Open the project in IntelliJ IDEA and build it. This will download all the necessary dependencies.
+
+## Development
+
+### Common Gradle Commands
+
+*   **Build the entire project:**
+    ```bash
+    ./gradlew build
+    ```
+*   **Run all unit tests:**
+    ```bash
+    ./gradlew test
+    ```
+*   **Run the Android application (in debug mode):**
+    ```bash
+    ./gradlew :androidApp:assembleDebug
+    ```
+*   **Run the Desktop application:**
+    ```bash
+    ./gradlew :desktopApp:run
+    ```

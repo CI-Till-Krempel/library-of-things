@@ -1,0 +1,10 @@
+{
+  "//TODO": "Replace this with your actual google-services.json file from Firebase.",
+  "project_info": {
+    "project_number": "1234567890",
+    "project_id": "library-of-things",
+    "storage_bucket": "library-of-things.appspot.com"
+  },
+  "client": [],
+  "configuration_version": "1"
+}
