@@ -23,6 +23,15 @@ This document outlines the development process for this project. Please adhere t
 5.  **Refactor:** Refactor your code to improve its design and readability.
 6.  **Repeat:** Repeat this process until the task is complete.
 
+## Requirements and Task Management
+
+This project uses a lightweight, markdown-based system for managing requirements and tracking progress.
+
+*   **Product Requirements Document (`PRODUCT.md`):** This file contains the high-level vision, target audience, and feature overview for the product.
+*   **Roadmap (`ROADMAP.md`):** This file outlines the planned release versions and the major features scoped for each release.
+*   **User Stories (`/stories`):** Detailed, implementable user stories for the current release are defined in individual markdown files within the `/stories` directory. Each story includes acceptance criteria and technical notes.
+*   **Kanban Board (`KANBAN.md`):** A text-based Kanban board is used to provide a quick overview of the status of each user story for the current release. Stories are moved from "To Do" to "In Progress" and finally to "Done".
+
 ## Error Handling
 
 *   If you encounter an error, try to fix it yourself first.

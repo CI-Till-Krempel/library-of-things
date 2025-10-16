@@ -22,6 +22,7 @@ The initial release focuses on the core peer-to-peer borrowing and lending loop.
 *   [005_search_for_item.md](./stories/005_search_for_item.md)
 *   [006_borrow_item.md](./stories/006_borrow_item.md)
 *   [007_view_borrowed_items.md](./stories/007_view_borrowed_items.md)
+*   [008_return_item.md](./stories/008_return_item.md)
 *   [008_borrower_initiates_return.md](./stories/008_borrower_initiates_return.md)
 *   [009_lender_confirms_return.md](./stories/009_lender_confirms_return.md)
 
