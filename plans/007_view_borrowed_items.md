@@ -41,8 +41,10 @@ To display a list of items that the currently logged-in user is borrowing from o
 
 *   **`repository/ItemRepositoryImpl.kt`**:
     *   Implements `getBorrowedItems` by delegating to the data sources, similar to `getItemsByOwner`.
-*   **`datasource/ItemRemoteDataSource.kt`**: Add `getBorrowedItems(borrowerId)` method.
-    *   The Firestore implementation will query the `items` collection for documents where the `borrowerId` field matches the current user's ID.
+*   **`datasource/ItemRemoteDataSource.kt` (Interface)**:
+    *   The interface for remote item operations.
+*   **`FirebaseRealtimeDbDataSource.kt` (Implementation)**:
+    *   The `getBorrowedItems` method will use `Firebase.database.reference("items").orderByChild("borrowerId").equalTo(borrowerId)` to query the Realtime Database and convert the results to a `Flow<List<Item>>`.
 *   **`datasource/ItemLocalDataSource.kt`**: Add `getBorrowedItems(borrowerId)` method that returns a `Flow` from the local SQLDelight database.
 
 ## 4. Testability

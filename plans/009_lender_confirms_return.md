@@ -38,10 +38,11 @@ To allow a lender to confirm they have received their item back, making it avail
 ### Data Layer
 
 *   **`repository/ItemRepositoryImpl.kt`**:
-    *   Implements `finalizeReturn` by calling the remote data source.
-*   **`datasource/ItemRemoteDataSource.kt` (Interface & Implementation)**:
-    *   Add `finalizeReturn(itemId)` method.
-    *   The Firestore implementation will perform an atomic update on the item document, setting the `status` to "Available" and removing the `borrowerId` field.
+    *   Implements `finalizeReturn` by calling the `FirebaseRealtimeDbDataSource`.
+*   **`datasource/ItemRemoteDataSource.kt` (Interface)**:
+    *   The interface for remote item operations.
+*   **`FirebaseRealtimeDbDataSource.kt` (Implementation)**:
+    *   The `finalizeReturn` method will use `Firebase.database.reference("items").child(itemId).updateChildren(...)` to update the item's `status` to `Available` and remove the `borrowerId` field.
 
 ## 4. Testability
 

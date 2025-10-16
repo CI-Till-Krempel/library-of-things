@@ -43,11 +43,13 @@ To allow a user to search for available items by name from the community's maste
 
 *   **`repository/ItemRepositoryImpl.kt`**:
     *   Implements `searchAvailableItems`.
-    *   It will call the `ItemRemoteDataSource` to perform the search on the backend.
+    *   It will call the `FirebaseRealtimeDbDataSource` to perform the search on the backend.
     *   It will filter out any items where the `ownerId` matches the `currentUserId`.
-*   **`datasource/ItemRemoteDataSource.kt` (Interface & Implementation)**:
-    *   Add `searchAvailableItems(query: String)` method.
-    *   The Firestore implementation will use a `where` clause to find items that are `Available` and match the search query. Firestore does not support all types of text search out-of-the-box, so for the MVP, this might be a simple prefix match or require a third-party search service like Algolia in the future.
+*   **`datasource/ItemRemoteDataSource.kt` (Interface)**:
+    *   The interface for remote item operations.
+*   **`FirebaseRealtimeDbDataSource.kt` (Implementation)**:
+    *   The `searchAvailableItems` method will use `Firebase.database.reference("items").orderByChild("name").startAt(query).endAt(query + "\uf8ff")` to perform a prefix search on the Realtime Database. It will also filter by `status == Available` and `ownerId != currentUserId`.
+*   **Note:** Realtime Database has limitations for complex text searches. For the MVP, a prefix search will be implemented. More advanced search might require a dedicated search service in the future.
 
 ## 4. Testability
 
