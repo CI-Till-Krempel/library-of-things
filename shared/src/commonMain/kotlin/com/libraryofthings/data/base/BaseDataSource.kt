@@ -8,7 +8,7 @@ import kotlinx.coroutines.withContext
 
 abstract class BaseDataSource(private val dispatcher: CoroutineDispatcher) {
 
-    protected suspend fun <T> safeApiCall(apiCall: suspend () -> HttpResponse): Result<T> = withContext(dispatcher) {
+    private suspend inline fun <reified T> safeApiCall(crossinline apiCall: suspend () -> HttpResponse): Result<T> = withContext(dispatcher) {
         try {
             val response = apiCall()
             if (response.status.isSuccess()) {

@@ -1,12 +1,19 @@
 package com.libraryofthings.presentation.base
 
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.cancel
 import kotlinx.coroutines.flow.StateFlow
 
 actual abstract class BaseViewModel<S, E> : ViewModel() {
     actual abstract val state: StateFlow<S>
-    actual override val viewModelScope: CoroutineScope = this.viewModelScope
+    actual val viewModelScope: CoroutineScope = CoroutineScope(SupervisorJob() + Dispatchers.Main)
     actual abstract fun onEvent(event: E)
+
+    override fun onCleared() {
+        super.onCleared()
+        viewModelScope.cancel()
+    }
 }

@@ -30,6 +30,12 @@ kotlin {
                 implementation(compose.material)
             }
         }
+        val androidMain by getting {
+            dependencies {
+                // Required for androidx.lifecycle.viewModelScope extension
+                implementation(libs.lifecycle.viewmodel.ktx)
+            }
+        }
         val commonTest by getting {
             dependencies {
                 implementation(libs.kotlin.test)
