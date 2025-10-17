@@ -42,10 +42,13 @@ To display a list of items that the currently logged-in user has made available 
 
 *   **`repository/ItemRepositoryImpl.kt`**:
     *   Implements `getItemsByOwner`.
-    *   It will first attempt to fetch the fresh list from the `ItemRemoteDataSource`.
+    *   It will first attempt to fetch the fresh list from the `FirebaseRealtimeDbDataSource`.
     *   It will then update the local cache (`ItemLocalDataSource`).
     *   It will return a `Flow` that emits the data from the local data source, ensuring the UI is always up-to-date with the cache and reacts to its changes.
-*   **`datasource/ItemRemoteDataSource.kt`**: Add `getItemsByOwner(ownerId)` method.
+*   **`datasource/ItemRemoteDataSource.kt` (Interface)**:
+    *   The interface for remote item operations.
+*   **`FirebaseRealtimeDbDataSource.kt` (Implementation)**:
+    *   The `getItemsByOwner` method will use `Firebase.database.reference("items").orderByChild("ownerId").equalTo(ownerId)` to query the Realtime Database and convert the results to a `Flow<List<Item>>`.
 *   **`datasource/ItemLocalDataSource.kt`**: Add `getItemsByOwner(ownerId)` method that returns a `Flow`.
 
 ## 4. Testability

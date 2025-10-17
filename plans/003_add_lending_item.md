@@ -45,9 +45,11 @@ To allow a logged-in user to add a new item to their personal inventory, which w
 
 *   **`repository/ItemRepositoryImpl.kt`**:
     *   Implements the `ItemRepository` interface.
-    *   The `addItem` method will first try to save the item to the remote data source. On success, it will also save it to the local data source (cache).
-*   **`datasource/ItemRemoteDataSource.kt` (Interface & Implementation)**:
-    *   The implementation will use Ktor to send the new item data to the backend (e.g., Firebase Firestore). It will create a new document in an `items` collection.
+    *   The `addItem` method will first try to save the item to the `FirebaseRealtimeDbDataSource`. On success, it will also save it to the local data source (cache).
+*   **`datasource/ItemRemoteDataSource.kt` (Interface)**:
+    *   The interface for remote item operations.
+*   **`FirebaseRealtimeDbDataSource.kt` (Implementation)**:
+    *   The `addItem` method will use `Firebase.database.reference("items").child(item.id).setValue(item)` to save the item to the Realtime Database.
 *   **`datasource/ItemLocalDataSource.kt` (Interface & Implementation)**:
     *   The implementation will use SQLDelight to insert the new item data into a local `items` table.
 

@@ -43,14 +43,14 @@ To allow a new user to create an account using their email and password via Fire
 ### Data Layer
 
 *   **`UserRepositoryImpl.kt`**:
-    *   Implements the `register` method by calling the remote data source.
-    *   `override suspend fun register(...) = userRemoteDataSource.register(...)`
+    *   Implements the `register` method by calling the `FirebaseRealtimeDbDataSource`.
+    *   `override suspend fun register(...) = firebaseRealtimeDbDataSource.register(...)`
 *   **`UserRemoteDataSource.kt` (Interface)**:
     *   Add new method: `suspend fun register(email: String, password: String): Result<User>`.
-*   **`FirebaseUserDataSource.kt` (Implementation)**:
+*   **`FirebaseRealtimeDbDataSource.kt` (Implementation)**:
     *   Inject the Firebase Auth instance (`FirebaseAuth`).
     *   Implement the `register` method:
-        1.  Call `firebaseAuth.createUserWithEmailAndPassword(email, password)`.
+        1.  Call `Firebase.auth.createUserWithEmailAndPassword(email, password)`.
         2.  On success, map the Firebase `FirebaseUser` to our domain `User` model and return `Result.success(user)`.
         3.  On failure, catch exceptions (e.g., `FirebaseAuthUserCollisionException`) and return `Result.failure(exception)`.
 

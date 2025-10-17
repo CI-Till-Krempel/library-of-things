@@ -43,11 +43,11 @@ To allow a user to borrow an available item, which updates the item's status and
 ### Data Layer
 
 *   **`repository/ItemRepositoryImpl.kt`**:
-    *   Implements `borrowItem` by calling the remote data source.
-*   **`datasource/ItemRemoteDataSource.kt` (Interface & Implementation)**:
-    *   Add `borrowItem(itemId, borrowerId)` method.
-    *   The Firestore implementation will update the specified item document, setting its `status` to "Lent Out" and adding the `borrowerId`.
-    *   This should be performed as an atomic transaction to prevent race conditions where two users try to borrow the same item simultaneously.
+    *   Implements `borrowItem` by calling the `FirebaseRealtimeDbDataSource`.
+*   **`datasource/ItemRemoteDataSource.kt` (Interface)**:
+    *   The interface for remote item operations.
+*   **`FirebaseRealtimeDbDataSource.kt` (Implementation)**:
+    *   The `borrowItem` method will use `Firebase.database.reference("items").child(itemId).updateChildren(...)` to update the item's `status` to `LentOut` and set the `borrowerId`. This should be performed as a transaction to prevent race conditions.
 
 ## 4. Testability
 

@@ -40,10 +40,11 @@ To allow a borrower to signal that they have returned an item, putting it into a
 ### Data Layer
 
 *   **`repository/ItemRepositoryImpl.kt`**:
-    *   Implements `updateItemStatus` by calling the remote data source.
-*   **`datasource/ItemRemoteDataSource.kt` (Interface & Implementation)**:
-    *   Add `updateItemStatus(itemId, newStatus)` method.
-    *   The Firestore implementation will update the `status` field of the specified item document.
+    *   Implements `updateItemStatus` by calling the `FirebaseRealtimeDbDataSource`.
+*   **`datasource/ItemRemoteDataSource.kt` (Interface)**:
+    *   The interface for remote item operations.
+*   **`FirebaseRealtimeDbDataSource.kt` (Implementation)**:
+    *   The `updateItemStatus` method will use `Firebase.database.reference("items").child(itemId).updateChildren(...)` to update the item's `status` to `PendingReturn`.
 
 ## 4. Testability
 

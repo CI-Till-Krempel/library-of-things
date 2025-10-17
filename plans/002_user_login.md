@@ -40,12 +40,13 @@ To allow a registered user to sign in using their email and password via Firebas
 ### Data Layer
 
 *   **`UserRepositoryImpl.kt`**:
-    *   Implements the `login` method by calling the remote data source.
+    *   Implements the `login` method by calling the `FirebaseRealtimeDbDataSource`.
+    *   `override suspend fun login(...) = firebaseRealtimeDbDataSource.login(...)`
 *   **`UserRemoteDataSource.kt` (Interface)**:
     *   Add new method: `suspend fun login(email: String, password: String): Result<User>`.
-*   **`FirebaseUserDataSource.kt` (Implementation)**:
+*   **`FirebaseRealtimeDbDataSource.kt` (Implementation)**:
     *   Implement the `login` method:
-        1.  Call `firebaseAuth.signInWithEmailAndPassword(email, password)`.
+        1.  Call `Firebase.auth.signInWithEmailAndPassword(email, password)`.
         2.  On success, map the `FirebaseUser` to our domain `User` and return `Result.success(user)`.
         3.  On failure, catch exceptions and return `Result.failure(exception)`.
 

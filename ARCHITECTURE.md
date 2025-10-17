@@ -51,10 +51,10 @@ We will adopt a classic Clean Architecture approach with three main layers: Doma
 
 *   **Purpose:** Implements the repository interfaces from the Domain layer. It contains the logic for fetching data from various sources (network, local database) and mapping it to the domain models.
 *   **Contents:**
-    *   **`repository/`**: Concrete implementations of the repository interfaces (e.g., `ItemRepositoryImpl`). This class will decide whether to fetch data from a remote source, a local cache, or a combination.
+    **`repository/`**: Concrete implementations of the repository interfaces (e.g., `ItemRepositoryImpl`). This class will decide whether to fetch data from the remote Firebase database or a local SQLDelight cache.
     *   **`datasource/`**: Interfaces for data sources (e.g., `ItemLocalDataSource`, `ItemRemoteDataSource`).
     *   **`local/` (Persistence):** Implementation of the local data source. We will use **SQLDelight** for type-safe, multiplatform database access.
-    *   **`remote/` (Network):** Implementation of the remote data source. We will use **Ktor** for multiplatform networking to interact with our backend (e.g., Firebase Firestore).
+    *   **`remote/` (Firebase Backend):** Implementation of the remote data source. We will use **Firebase Realtime Database** as our primary backend, accessed via the **Gitlive Firebase** KMP library. A `FirebaseRealtimeDbDataSource` will implement the remote data source interfaces.
 *   **Testability:** Repository implementations can be tested by mocking the data sources they depend on.
 
 ### 3.3. Presentation Layer (`shared/src/commonMain/kotlin/com/libraryofthings/presentation`)
