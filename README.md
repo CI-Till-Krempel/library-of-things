@@ -9,6 +9,10 @@ This project is a "Library of Things" application built with Kotlin Multiplatfor
 3.  **Clone the repository:** `git clone <repository-url>`
 4.  **Firebase Configuration:** You must add your own Firebase configuration files. Place your `google-services.json` in the `androidApp/` directory and your `GoogleService-Info.plist` in the `iosApp/` directory.
 5.  **iOS Firebase Setup:** For iOS, you need to integrate the native Firebase SDKs.
+    *   **Create Xcode Project:** If you don't have one, you need to create a basic Xcode project in the `iosApp` directory. 
+        1.  Open Xcode, select `File > New > Project...`.
+        2.  Choose the `iOS > App` template.
+        3.  Name the project `iosApp` and save it in the `iosApp` directory of your project.
     *   **Create Podfile:** If you don't have one, create a `Podfile` in the `iosApp` directory with the necessary Firebase pods. A basic example:
         ```ruby
         platform :ios, '13.0'
