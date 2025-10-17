@@ -5,6 +5,9 @@ This document outlines the development process for this project. Please adhere t
 ## Core Principles
 
 *   **Iterative Development:** We build software in small, incremental steps.
+*   **Commit regularly:** Commit your code regularly and make sure that your code is working as expected.
+*   **Run the tests frequently:** Run the tests frequently to ensure that your code is working as expected.
+*   **Document your work:** Document your work in a way that is understandable by other developers.
 *   **Clean Code:** Write clean, readable, and maintainable code. Follow the principles of "Clean Code" by Robert C. Martin.
 *   **Test-Driven Development (TDD):** Write tests before you write production code. This ensures that your code is testable and that you have a clear understanding of the requirements.
 
@@ -13,15 +16,26 @@ This document outlines the development process for this project. Please adhere t
 *   **Language:** Kotlin
 *   **Framework:** Kotlin Multiplatform
 *   **Architecture:** Clean Architecture
+*   **Testing:** JUnit 5
+*   **Version Control:** Git
+*   **Continuous Integration:** GitHub Actions
+*   **Code Style:** Kotlin Style Guide
+*   **Documentation:** Markdown
 
 ## Development Process
 
 1.  **Understand the Task:** Before you start coding, make sure you understand the requirements of the task.
 2.  **Plan your work:** Create a plan for your work and save it in the `/plans` directory. The plan should be a markdown file with a descriptive name.
-3.  **Write Tests:** Start by writing a failing test that describes the desired behavior.
-4.  **Write Code:** Write the minimum amount of code required to make the test pass.
-5.  **Refactor:** Refactor your code to improve its design and readability.
-6.  **Repeat:** Repeat this process until the task is complete.
+3.  **Check wether all prerequisites are met:** Make sure that all prerequisites are met.
+4.  **Add ToDos for Human User** Mark all ToDos that have to be done by the human user in the readme.
+5.  **Update Kanban Board:** Update the Kanban board with the status of your task.
+6.  **Create a Branch:** Create a new branch for your work.
+7.  **Write Tests:** Start by writing a failing test that describes the desired behavior.
+8.  **Write Code:** Write the minimum amount of code required to make the test pass.
+9.  **Refactor:** Refactor your code to improve its design and readability.
+10.  **Repeat:** Repeat this process until the task is complete.
+11.  **Move the task to Done:** Move the task to the "Done" column in the Kanban board.
+12.  **Submit a Pull Request:** Submit a pull request to merge your code into the `main` branch
 
 ## Requirements and Task Management
 
@@ -37,6 +51,7 @@ This project uses a lightweight, markdown-based system for managing requirements
 *   If you encounter an error, try to fix it yourself first.
 *   Use the debugger to step through your code and understand the cause of the error.
 *   If you are unable to fix the error, ask for help.
+*   If there are steps that have to be taken by the user, communicate them clearly
 
 ## Testing
 
