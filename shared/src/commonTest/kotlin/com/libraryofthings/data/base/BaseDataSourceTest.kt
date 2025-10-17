@@ -1,7 +1,10 @@
 package com.libraryofthings.data.base
 
+import io.ktor.client.HttpClient
 import io.ktor.client.engine.mock.MockEngine
 import io.ktor.client.engine.mock.respond
+import io.ktor.client.request.get
+import io.ktor.client.statement.HttpResponse
 import io.ktor.http.HttpHeaders
 import io.ktor.http.HttpStatusCode
 import io.ktor.http.headersOf
@@ -28,10 +31,11 @@ class BaseDataSourceTest {
                 headers = headersOf(HttpHeaders.ContentType, "application/json")
             )
         }
+        val httpClient = HttpClient(mockEngine)
         val dataSource = object : BaseDataSource(testDispatcher) {}
 
         // When
-        val result = dataSource.safeApiCall<String> { mockEngine.makeRequest() }
+        val result = dataSource.safeApiCall<String> { httpClient.get("http://localhost") }
 
         // Then
         assertTrue(result.isSuccess)
@@ -42,10 +46,11 @@ class BaseDataSourceTest {
     fun `safeApiCall should return failure when api call fails`() = runTest(testDispatcher) {
         // Given
         val mockEngine = MockEngine { respond(status = HttpStatusCode.InternalServerError, content = "Error") }
+        val httpClient = HttpClient(mockEngine)
         val dataSource = object : BaseDataSource(testDispatcher) {}
 
         // When
-        val result = dataSource.safeApiCall<String> { mockEngine.makeRequest() }
+        val result = dataSource.safeApiCall<String> { httpClient.get("http://localhost") }
 
         // Then
         assertTrue(result.isFailure)
@@ -55,10 +60,11 @@ class BaseDataSourceTest {
     fun `safeApiCall should return failure when api call throws an exception`() = runTest(testDispatcher) {
         // Given
         val mockEngine = MockEngine { throw RuntimeException("Network Error") }
+        val httpClient = HttpClient(mockEngine)
         val dataSource = object : BaseDataSource(testDispatcher) {}
 
         // When
-        val result = dataSource.safeApiCall<String> { mockEngine.makeRequest() }
+        val result = dataSource.safeApiCall<String> { httpClient.get("http://localhost") }
 
         // Then
         assertTrue(result.isFailure)

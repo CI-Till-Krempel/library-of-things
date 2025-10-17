@@ -6,9 +6,9 @@ import io.ktor.http.isSuccess
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
 
-abstract class BaseDataSource(private val dispatcher: CoroutineDispatcher) {
+public abstract class BaseDataSource(public val dispatcher: CoroutineDispatcher) {
 
-    private suspend inline fun <reified T> safeApiCall(crossinline apiCall: suspend () -> HttpResponse): Result<T> = withContext(dispatcher) {
+    public inline suspend fun <reified T> safeApiCall(crossinline apiCall: suspend () -> HttpResponse): Result<T> = withContext(dispatcher) {
         try {
             val response = apiCall()
             if (response.status.isSuccess()) {

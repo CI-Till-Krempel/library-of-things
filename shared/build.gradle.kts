@@ -20,6 +20,9 @@ kotlin {
     iosArm64()
     iosSimulatorArm64()
 
+    // /TODO: For iOS, ensure native Firebase SDKs are integrated via CocoaPods or SPM.
+    // See README.md for instructions.
+
     sourceSets {
         val commonMain by getting {
             dependencies {

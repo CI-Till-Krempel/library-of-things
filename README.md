@@ -8,7 +8,11 @@ This project is a "Library of Things" application built with Kotlin Multiplatfor
 2.  **Install IntelliJ IDEA:** It is recommended to use IntelliJ IDEA with the Kotlin plugin.
 3.  **Clone the repository:** `git clone <repository-url>`
 4.  **Firebase Configuration:** You must add your own Firebase configuration files. Place your `google-services.json` in the `androidApp/` directory and your `GoogleService-Info.plist` in the `iosApp/` directory.
-5.  **Build the project:** Open the project in IntelliJ IDEA and build it. This will download all the necessary dependencies.
+5.  **iOS Firebase Setup:** For iOS, you need to integrate the native Firebase SDKs. 
+    *   Navigate to the `iosApp` directory: `cd iosApp`
+    *   Install CocoaPods dependencies: `pod install`
+    *   Open the `.xcworkspace` file in Xcode.
+6.  **Build the project:** Open the project in IntelliJ IDEA and build it. This will download all the necessary dependencies.
 
 ## Development
 
