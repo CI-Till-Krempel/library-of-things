@@ -9,6 +9,16 @@ repositories {
     mavenCentral()
 }
 
+tasks.register("createGoogleServices", Exec::class) {
+    commandLine("../scripts/create-google-services.sh")
+}
+
+tasks.whenTaskAdded {
+    if (name == "processDebugGoogleServices" || name == "processReleaseGoogleServices") {
+        dependsOn("createGoogleServices")
+    }
+}
+
 android {
     namespace = "com.libraryofthings.android"
     compileSdk = 34
