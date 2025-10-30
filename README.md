@@ -7,8 +7,23 @@ This project is a "Library of Things" application built with Kotlin Multiplatfor
 1.  **Install JDK:** Make sure you have a recent version of the Java Development Kit (JDK) installed (e.g., JDK 17).
 2.  **Install IntelliJ IDEA:** It is recommended to use IntelliJ IDEA with the Kotlin plugin.
 3.  **Clone the repository:** `git clone <repository-url>`
-4.  **Firebase Configuration:** You must add your own Firebase configuration files. Place your `google-services.json` in the `androidApp/` directory and your `GoogleService-Info.plist` in the `iosApp/` directory.
+4.  **Firebase Configuration:** To configure Firebase, you need to provide your `google-services.json` and `GoogleService-Info.plist` files as base64 encoded environment variables.
+    *   **Base64 Encode your Firebase files:**
+        ```bash
+        cat androidApp/google-services.json | base64 > google-services.json.base64
+        cat iosApp/GoogleService-Info.plist | base64 > GoogleService-Info.plist.base64
+        ```
+    *   **Set Environment Variables:** Set the content of these base64 files as environment variables named `GOOGLE_SERVICES_JSON` and `GOOGLE_SERVICES_PLIST` respectively. For example, in your `.bashrc` or `.zshrc`:
+        ```bash
+        export GOOGLE_SERVICES_JSON="$(cat google-services.json.base64)"
+        export GOOGLE_SERVICES_PLIST="$(cat GoogleService-Info.plist.base64)"
+        ```
+    *   **Important:** Ensure these environment variables are set in your development environment and any CI/CD pipelines.
 5.  **iOS Firebase Setup:** For iOS, you need to integrate the native Firebase SDKs.
+    *   **Create Xcode Project:** If you don't have one, you need to create a basic Xcode project in the `iosApp` directory. 
+        1.  Open Xcode, select `File > New > Project...`.
+        2.  Choose the `iOS > App` template.
+        3.  Name the project `iosApp` and save it in the `iosApp` directory of your project.
     *   **Create Podfile:** If you don't have one, create a `Podfile` in the `iosApp` directory with the necessary Firebase pods. A basic example:
         ```ruby
         platform :ios, '13.0'

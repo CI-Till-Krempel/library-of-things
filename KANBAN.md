@@ -19,8 +19,7 @@ This board tracks the progress of user stories for the current release.
 
 ## In Progress
 
-_No items in progress._
 
 ## Done
 
-_No items are done._
+*   [x] [Security: Remove google service account json from repository and create it at build time from an environment variable](./plans/tech_004_protect_google_service_account.md)
