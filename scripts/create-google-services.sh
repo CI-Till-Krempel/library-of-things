@@ -16,9 +16,9 @@ if [ -z "$GOOGLE_SERVICES_PLIST" ]; then
 fi
 
 echo "Creating google-services.json..."
-echo "$GOOGLE_SERVICES_JSON" | base64 -d > androidApp/google-services.json
+echo "$GOOGLE_SERVICES_JSON" | base64 -d > ../androidApp/google-services.json
 
 echo "Creating GoogleService-Info.plist..."
-echo "$GOOGLE_SERVICES_PLIST" | base64 -d > iosApp/GoogleService-Info.plist
+echo "$GOOGLE_SERVICES_PLIST" | base64 -d > ../iosApp/GoogleService-Info.plist
 
 echo "Done."

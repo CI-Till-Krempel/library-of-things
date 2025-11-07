@@ -19,6 +19,8 @@ This project is a "Library of Things" application built with Kotlin Multiplatfor
         export GOOGLE_SERVICES_PLIST="$(cat GoogleService-Info.plist.base64)"
         ```
     *   **Important:** Ensure these environment variables are set in your development environment and any CI/CD pipelines.
+        For local development, you can add them to your `.bashrc` or `.zshrc` file or create an .env file that you run with "source <PROJECT_DIR>/.env".
+        For CI/CD pipelines, you can add them to your CI/CD secrets.
 5.  **iOS Firebase Setup:** For iOS, you need to integrate the native Firebase SDKs.
     *   **Create Xcode Project:** If you don't have one, you need to create a basic Xcode project in the `iosApp` directory. 
         1.  Open Xcode, select `File > New > Project...`.

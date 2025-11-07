@@ -1,0 +1,155 @@
+name: KMP CI (Android • Desktop • iOS)
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  JAVA_VERSION: "17"
+  GRADLE_OPTS: "-Dorg.gradle.daemon=false -Dorg.gradle.parallel=true -Dkotlin.incremental=true"
+
+jobs:
+  # ---------- ANDROID + DESKTOP (Ubuntu) ----------
+  android_desktop:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: ${{ env.JAVA_VERSION }}
+
+      - name: Set up Gradle (with cache)
+        uses: gradle/actions/setup-gradle@v3
+
+      - name: Set up Android SDK
+        uses: android-actions/setup-android@v3
+
+      - name: Gradle — Clean
+        run: ./gradlew clean --stacktrace
+
+      # ---- Android build & Tests ----
+      - name: Android Unit Tests
+        run: ./gradlew :androidApp:testDebugUnitTest --stacktrace
+        # TODO: Ersetze :androidApp bei Bedarf (z.B. :app)
+
+      - name: Android Assemble (Debug)
+        run: ./gradlew :androidApp:assembleDebug --stacktrace
+        # TODO: Falls Release/Signierung: assembleRelease + Keystore/secrets
+
+      # ---- JVM/common Tests (inkl. Desktop-JVM) ----
+      - name: JVM/common Tests
+        run: ./gradlew test --stacktrace
+        # Dadurch laufen alle JVM-Tests in gemeinsamen/desktop Modulen
+
+      # ---- Desktop build (Compose Desktop o.Ä.) ----
+      - name: Desktop build (Compose Desktop)
+        run: |
+          # Wähle eine der gängigen Aufgaben und passe die Modulpfade an:
+          ./gradlew :desktopApp:packageDistributionForCurrentOS --stacktrace
+          # oder:
+          # ./gradlew :composeApp:desktop:packageDistributionForCurrentOS --stacktrace
+          echo "TODO: Desktop-Task/Modul anpassen"
+        shell: bash
+
+      - name: Upload Android APK (Debug)
+        if: success()
+        uses: actions/upload-artifact@v4
+        with:
+          name: android-debug-apk
+          path: |
+            **/build/outputs/**/*.apk
+
+      - name: Upload Desktop Distributions
+        if: success()
+        uses: actions/upload-artifact@v4
+        with:
+          name: desktop-dist
+          path: |
+            **/build/compose/binaries/main/**/*
+            **/build/compose/tmp/**/*
+            **/build/distributions/**/*
+
+  # ---------- iOS (macOS) ----------
+  ios:
+    runs-on: macos-latest
+    timeout-minutes: 60
+    needs: [android_desktop]
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: ${{ env.JAVA_VERSION }}
+
+      - name: Set up Gradle (with cache)
+        uses: gradle/actions/setup-gradle@v3
+
+      - name: CocoaPods (optional)
+        if: hashFiles('iosApp/Podfile') != ''
+        run: |
+          sudo gem install cocoapods -N
+          cd iosApp
+          pod install --repo-update
+
+      - name: Gradle — Build native targets (ohne Tests)
+        run: |
+          # Baut KMP Native Artefakte (ohne Simulator Tests)
+          ./gradlew :shared:assemble --stacktrace
+        # TODO: Passe :shared an dein Multiplatform-Modul an
+
+      - name: iOS Unit Tests (KMP shared, Simulator)
+        run: |
+          # Starte einen iOS-Simulator und führe KMP iOS-Tests aus.
+          # Am häufigsten: iosX64 (Simulator) Tests im shared Modul.
+          xcrun simctl bootstatus booted || xcrun simctl boot "iPhone 15"
+          ./gradlew :shared:iosX64Test --stacktrace
+        # TODO: Falls Targets anders heißen (z.B. iosSimulatorArm64Test), anpassen.
+
+      - name: Build iosApp via Xcode (optional, falls Xcode-Projekt vorhanden)
+        run: |
+          if [ -d "iosApp" ]; then
+            xcrun simctl boot "iPhone 15" || true
+            # Wähle workspace/scheme je nach Projektstruktur:
+            if [ -f "iosApp/iosApp.xcworkspace/contents.xcworkspacedata" ]; then
+              xcodebuild \
+                -workspace iosApp/iosApp.xcworkspace \
+                -scheme iosApp \
+                -configuration Debug \
+                -destination 'platform=iOS Simulator,name=iPhone 15' \
+                build | xcpretty
+            elif [ -f "iosApp/iosApp.xcodeproj/project.pbxproj" ]; then
+              xcodebuild \
+                -project iosApp/iosApp.xcodeproj \
+                -scheme iosApp \
+                -configuration Debug \
+                -destination 'platform=iOS Simulator,name=iPhone 15' \
+                build | xcpretty
+            else
+              echo "Kein Xcode-Projekt gefunden – Schritt übersprungen."
+            fi
+          else
+            echo "iosApp-Verzeichnis nicht vorhanden – Schritt übersprungen."
+          fi
+
+      - name: Upload iOS build outputs
+        uses: actions/upload-artifact@v4
+        with:
+          name: ios-build
+          path: |
+            **/build/bin/ios*/**/*
+            iosApp/build/**/*

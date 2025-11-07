@@ -16,9 +16,10 @@ kotlin {
             kotlinOptions.jvmTarget = "1.8"
         }
     }
-    iosX64()
-    iosArm64()
-    iosSimulatorArm64()
+    // TODO the build fails if the next lines are uncommented fix this in a separate Task
+//    iosX64()
+//    iosArm64()
+//    iosSimulatorArm64()
 
     // /TODO: For iOS, ensure native Firebase SDKs are integrated via CocoaPods or SPM.
     // See README.md for instructions.
