@@ -1,5 +1,6 @@
 plugins {
-    id("org.jetbrains.compose")
+    alias(libs.plugins.jetbrainsCompose)
+    alias(libs.plugins.compose.compiler)
 }
 
 repositories {
