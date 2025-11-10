@@ -2,6 +2,8 @@ plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
     id("com.google.gms.google-services")
+    alias(libs.plugins.jetbrainsCompose)
+    alias(libs.plugins.compose.compiler)
 }
 
 repositories {
@@ -9,24 +11,28 @@ repositories {
     mavenCentral()
 }
 
-tasks.register("createGoogleServices", Exec::class) {
+val createGoogleServices = tasks.register("createGoogleServices", Exec::class) {
     commandLine("../scripts/create-google-services.sh")
 }
 
-tasks.whenTaskAdded {
-    if (name == "processDebugGoogleServices" || name == "processReleaseGoogleServices") {
-        dependsOn("createGoogleServices")
+afterEvaluate {
+    tasks.named("processDebugGoogleServices").configure {
+        dependsOn(createGoogleServices)
+    }
+    tasks.named("processReleaseGoogleServices").configure {
+        dependsOn(createGoogleServices)
     }
 }
 
 android {
     namespace = "com.libraryofthings.android"
-    compileSdk = 34
+    compileSdk = 36
 
     defaultConfig {
         applicationId = "com.libraryofthings.android"
         minSdk = 24
-        targetSdk = 34
+        targetSdk = 36
+        
         versionCode = 1
         versionName = "1.0"
     }
@@ -39,4 +45,8 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
+}
+
+dependencies {
+    implementation(compose.runtime)
 }
