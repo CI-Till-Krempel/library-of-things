@@ -27,6 +27,7 @@ kotlin {
             dependencies {
                 implementation(libs.ktor.client.core)
                 implementation(libs.firebase.database)
+                implementation(libs.firebase.auth)
                 implementation(compose.runtime)
                 implementation(compose.foundation)
                 implementation(compose.material)

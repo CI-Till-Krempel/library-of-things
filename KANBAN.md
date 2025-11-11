@@ -7,7 +7,6 @@ This board tracks the progress of user stories for the current release.
 *   [ ] [Working iOS Build](./plans/tech_001_working_ios_build.md)
 *   [ ] [Firebase Auth Integration](./plans/tech_002_firebase_auth_integration.md)
 *   [ ] [Firebase Realtime Database Setup](./plans/tech_003_firebase_realtime_db_setup.md)
-*   [ ] [User Registration](./stories/001_user_registration.md)
 *   [ ] [User Login](./stories/002_user_login.md)
 *   [ ] [Add Lending Item](./stories/003_add_lending_item.md)
 *   [ ] [View Lending Items](./stories/004_view_lending_items.md)
@@ -19,6 +18,7 @@ This board tracks the progress of user stories for the current release.
 
 ## In Progress
 
+*   [ ] [User Registration](./stories/001_user_registration.md)
 
 ## Done
 
