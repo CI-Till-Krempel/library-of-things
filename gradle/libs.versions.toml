@@ -15,6 +15,7 @@ google-services = { module = "com.google.gms:google-services", version.ref = "go
 ktor-client-core = { module = "io.ktor:ktor-client-core", version.ref = "ktor" }
 ktor-client-mock = { module = "io.ktor:ktor-client-mock", version.ref = "ktor" }
 firebase-database = { module = "dev.gitlive:firebase-database", version.ref = "gitlive-firebase" }
+firebase-auth = { module = "dev.gitlive:firebase-auth", version.ref = "gitlive-firebase" }
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
 coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "coroutines" }
 lifecycle-viewmodel-ktx = { module = "androidx.lifecycle:lifecycle-viewmodel-ktx", version = "2.9.4" }
