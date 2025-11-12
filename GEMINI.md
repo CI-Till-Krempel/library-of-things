@@ -35,7 +35,9 @@ This document outlines the development process for this project. Please adhere t
 9.  **Refactor:** Refactor your code to improve its design and readability.
 10.  **Repeat:** Repeat this process until the task is complete.
 11.  **Move the task to Done:** Move the task to the "Done" column in the Kanban board.
-12.  **Submit a Pull Request:** Submit a pull request to merge your code into the `main` branch
+12.  **Run Build and Tests:** Always run the build and tests to ensure the changes are valid and do not break existing functionality before pushing.
+13.  **Commit and Push Changes:** Automatically commit and push all changes to the current branch after completing a task or a significant part of it.
+14.  **Submit a Pull Request:** Submit a pull request to merge your code into the `main` branch
 
 ## Requirements and Task Management
 
@@ -71,6 +73,15 @@ This project uses a lightweight, markdown-based system for managing requirements
 
 *   **Clean Architecture:** We use Clean Architecture to separate the concerns of our application.
 *   **Documentation:** Document all significant architecture decisions in the `ARCHITECTURE.md` file.
+
+## UI Development
+
+As a command-line agent, Gemini cannot visually create or test user interfaces. Instead, Gemini will create "skeleton" views. This involves:
+
+1.  **Creating the UI Structure:** Writing the Jetpack Compose code (`@Composable` functions) with the necessary components like `TextField`, `Button`, and `Text`.
+2.  **Connecting the Logic:** Binding these components to the `ViewModel`, ensuring that user input is captured, actions are triggered, and the UI reacts to state changes (like showing a loading indicator or an error message).
+
+The result will be a functional but unstyled UI. A human developer is then responsible for applying the visual design (colors, typography, layout, etc.) on top of the functional skeleton.
 
 ## Project Overview
 

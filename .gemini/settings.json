@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "jetbrains-ide": {
+      "url": "http://localhost:64342/sse",
+      "headers": {}
+    }
+  }
+}
