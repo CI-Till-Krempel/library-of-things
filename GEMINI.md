@@ -35,7 +35,8 @@ This document outlines the development process for this project. Please adhere t
 9.  **Refactor:** Refactor your code to improve its design and readability.
 10.  **Repeat:** Repeat this process until the task is complete.
 11.  **Move the task to Done:** Move the task to the "Done" column in the Kanban board.
-12.  **Submit a Pull Request:** Submit a pull request to merge your code into the `main` branch
+12.  **Commit and Push Changes:** Automatically commit and push all changes to the current branch after completing a task or a significant part of it.
+13.  **Submit a Pull Request:** Submit a pull request to merge your code into the `main` branch
 
 ## Requirements and Task Management
 
