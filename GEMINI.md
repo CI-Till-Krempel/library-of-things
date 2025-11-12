@@ -72,6 +72,15 @@ This project uses a lightweight, markdown-based system for managing requirements
 *   **Clean Architecture:** We use Clean Architecture to separate the concerns of our application.
 *   **Documentation:** Document all significant architecture decisions in the `ARCHITECTURE.md` file.
 
+## UI Development
+
+As a command-line agent, Gemini cannot visually create or test user interfaces. Instead, Gemini will create "skeleton" views. This involves:
+
+1.  **Creating the UI Structure:** Writing the Jetpack Compose code (`@Composable` functions) with the necessary components like `TextField`, `Button`, and `Text`.
+2.  **Connecting the Logic:** Binding these components to the `ViewModel`, ensuring that user input is captured, actions are triggered, and the UI reacts to state changes (like showing a loading indicator or an error message).
+
+The result will be a functional but unstyled UI. A human developer is then responsible for applying the visual design (colors, typography, layout, etc.) on top of the functional skeleton.
+
 ## Project Overview
 
 *   For a project overview and initial setup instructions, please refer to the `README.md` file.
